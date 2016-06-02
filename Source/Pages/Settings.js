@@ -18,6 +18,7 @@ import {
 const Ionicons = require('../UI/Ionicons') // react-native-vector-icons/Ionicons
 const DeviceInfo = require('react-native-device-info')
 const Moment = require('moment')
+const SemVer = require('semver')
 
 const GLOBAL = require('../Globals')
 const APPINFO = require('../AppInfo')
@@ -180,7 +181,7 @@ const UpdateSection = React.createClass({
       )
     }
 
-    if (latestApp == APPINFO.buildVersion) {
+    if (SemVer.lte(latestApp, APPINFO.buildVersion)) {
       return (
         <View style={[styles.section,{flexDirection:'column',justifyContent:'center'}]}>
           <Text style={[styles.updateText,{marginBottom:0}]}>

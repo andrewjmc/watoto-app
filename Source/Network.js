@@ -280,9 +280,6 @@ class Network {
   update() {
     var url = 'https://watoto.cyberfish.org/install/'
     switch (Platform.OS) {
-      case 'ios':
-        url = 'https://itunes.apple.com/app/id1114369542'
-        break
       case 'android':
         url = 'https://play.google.com/store/apps/details?id=org.cyberfish.watoto'
         break
