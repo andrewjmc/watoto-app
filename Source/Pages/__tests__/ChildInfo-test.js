@@ -32,6 +32,7 @@ function find(app, type, refName) {
 const WeightEstimator = require('../../Data/Child/WeightEstimator')
 const WeightHeightCalculator = require('../../Data/Child/WeightHeightCalculator')
 const SurfaceAreaCalculator = require('../../Data/Child/SurfaceAreaCalculator')
+const MidUpperArmCalculator = require('../../Data/Child/MidUpperArmCalculator')
 
 const initialState = (overrides) => {
   var child = new Child()
@@ -147,6 +148,23 @@ describe('User inputs correctly update state', () => {
       .toBe(mockZScore)
   })
 
+  it('should calculate a MUAC score when muac is provided', () => {
+    const muac = '12.5'
+    const mockMuacScore = -1
+
+    MidUpperArmCalculator.getScore.mockImplementation(() => mockMuacScore)
+
+    find(app, 'TextInput', 'muacRaw')
+      .simulate('changeText', muac)
+
+    expect(MidUpperArmCalculator.getScore)
+      .toBeCalled()
+    expect(MidUpperArmCalculator.getScore)
+      .lastCalledWith(parseFloat(muac))
+    expect(state.child.muacScore)
+      .toBe(mockMuacScore)
+  })
+
   it('should calculate an approximate body surface area when weight is provided', () => {
     const weight = '5'
     const mockSurfaceArea = '~0.28'
@@ -195,6 +213,8 @@ describe('State renders correctly into user interface', () => {
       gender: GLOBAL.GENDERS[1],
       weight: '5',
       height: '58',
+      muac: '12.5',
+      muacScore: -1,
       zScore: -1,
       surfaceArea: '0.28',
     })
@@ -237,6 +257,13 @@ describe('State renders correctly into user interface', () => {
       find(app, 'TextInput', 'heightRaw')
         .node.props.value
     ).toBe(state.child.heightRaw)
+  })
+
+  it('should correctly render muac input', () => {
+    expect(
+      find(app, 'TextInput', 'muacRaw')
+        .node.props.value
+    ).toBe(state.child.muacRaw)
   })
 
   it('should correctly render z-score', () => {

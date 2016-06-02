@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     flex: 3,
     fontSize: 20,
     textAlign: 'right',
-    backgroundColor: '#fff',
+    backgroundColor: 'transparent',
     color: '#000',
   },
   inputAndroid: {
@@ -294,6 +294,40 @@ const ChildInfo = React.createClass({
     )
   },
 
+  renderMUAC() {
+    var style = ''
+    switch (this.props.state.child.muacScore) {
+      case  0:
+        style = styles.zscoreNone
+        break
+      case -1:
+        style = styles.zscoreAtRisk
+        break
+      case -2:
+        style = styles.zscoreModerate
+        break
+      case -3:
+        style = styles.zscoreSevere
+        break
+    }
+    return (
+      <View style={[styles.section,style]}>
+        <Text style={styles.label}>
+          MUAC (cm)
+        </Text>
+        <TextInput
+          ref='muacRaw'
+          style={[styles.input,(Platform.OS==='android')?styles.inputAndroid:{}]}
+          keyboardType='numeric'
+          placeholder='0'
+          value={this.props.state.child.muacRaw}
+          onFocus={this.inputFocused.bind(this, 'muacRaw')}
+          onBlur={this.inputFocused.bind(this, 'ageRaw')}
+          onChangeText={this.changeState.bind(this, 'muacRaw')} />
+      </View>
+    )
+  },
+
   renderZScore() {
     var style = ''
     var text = ''
@@ -356,6 +390,8 @@ const ChildInfo = React.createClass({
 
         {this.renderWeight()}
         {this.renderHeight()}
+
+        {this.renderMUAC()}
 
         {this.renderZScore()}
         {this.renderSurfaceArea()}

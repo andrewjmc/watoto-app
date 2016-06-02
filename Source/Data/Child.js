@@ -4,6 +4,7 @@ const GLOBAL = require('../Globals')
 const WeightEstimator = require('./Child/WeightEstimator')
 const WeightHeightCalculator = require('./Child/WeightHeightCalculator')
 const SurfaceAreaCalculator = require('./Child/SurfaceAreaCalculator')
+const MidUpperArmCalculator = require('./Child/MidUpperArmCalculator')
 
 class Child {
   constructor() {
@@ -16,9 +17,13 @@ class Child {
     this.weightBackup = undefined
     this.height = undefined
     this.heightRaw = undefined
+    this.muac = undefined
+    this.muacRaw = undefined
+
     this.estimateWeight = false
     this.estimateUnderweight = false
 
+    this.muacScore = undefined
     this.zScore = undefined
     this.surfaceArea = undefined
   }
@@ -41,6 +46,9 @@ class Child {
       case 'heightRaw':
         this._updateHeight()
         break
+      case 'muacRaw':
+        this._updateMUAC()
+        break
       case 'estimateWeight':
         this._updateEstimatedWeight()
         break
@@ -59,6 +67,10 @@ class Child {
 
   _updateHeight() {
     this['height'] = isNaN(this.heightRaw)?undefined:parseFloat(parseFloat(this.heightRaw).toFixed(0))
+  }
+
+  _updateMUAC() {
+    this['muac'] = isNaN(this.muacRaw)?undefined:parseFloat(parseFloat(this.muacRaw).toFixed(1))
   }
 
   _updateEstimatedWeight() {
@@ -86,6 +98,10 @@ class Child {
 
       this.zScore = undefined
       this.surfaceArea = undefined
+    }
+
+    if (this.muac) {
+      this.muacScore = MidUpperArmCalculator.getScore(this.muac)
     }
   }
 }

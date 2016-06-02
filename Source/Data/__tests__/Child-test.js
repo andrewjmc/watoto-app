@@ -12,6 +12,7 @@ const Child = require('../Child')
 const WeightEstimator = require('../../Data/Child/WeightEstimator')
 const WeightHeightCalculator = require('../../Data/Child/WeightHeightCalculator')
 const SurfaceAreaCalculator = require('../../Data/Child/SurfaceAreaCalculator')
+const MidUpperArmCalculator = require('../../Data/Child/MidUpperArmCalculator')
 
 describe('Child', () => {
   var child
@@ -96,6 +97,22 @@ describe('Child', () => {
       .lastCalledWith('male', parseFloat(age), parseFloat(height), parseFloat(weight))
     expect(child.zScore)
       .toBe(mockZScore)
+  })
+
+  it('should calculate a MUAC score when provided', () => {
+    const muac = '12.5'
+    const mockMuacScore = -1
+
+    MidUpperArmCalculator.getScore.mockImplementation(() => mockMuacScore)
+
+    child.set('muacRaw', muac)
+
+    expect(MidUpperArmCalculator.getScore)
+      .toBeCalled()
+    expect(MidUpperArmCalculator.getScore)
+      .lastCalledWith(parseFloat(muac))
+    expect(child.muacScore)
+      .toBe(mockMuacScore)
   })
 
   it('should calculate an approximate body surface area when weight is provided', () => {
