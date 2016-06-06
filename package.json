@@ -36,8 +36,8 @@
     "test": "node node_modules/jest-cli/bin/jest.js",
     "prestart": "node Scripts/GenerateAppInfo.js",
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "preversion": "npm test --warn && node Scripts/IncrementBuildNumber.js",
-    "version": "npm run prestart && node Scripts/SetXcodeVersion.js && node Scripts/SetAndroidVersion.js"
+    "preversion": "npm test --warn",
+    "version": "node Scripts/IncrementBuildNumber.js && npm run prestart && node Scripts/SetXcodeVersion.js && node Scripts/SetAndroidVersion.js"
   },
   "dependencies": {
     "@exponent/react-native-navigator": "0.4.7",
