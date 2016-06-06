@@ -17,7 +17,9 @@ const Drug = {
     '\n- Loading dose: 15-20 mg/kg stat\n(IV / PO; max rate 1 mg/kg/min)\n- Maintenance: 2.5-5 mg/kg 12 hrly\n(IV / PO; max 150 mg)\n' +
     '\nSimilar dosing can be used in neonates',
   calculate: (child: Child) => {
-    if (!child.weight) return undefined
+    if (!child.age || !child.weight) return undefined
+
+    if (child.age >= 156) return undefined // >= 13 yrs
 
     var loadingDose0 = 15 * child.weight
     var loadingDose1 = 20 * child.weight

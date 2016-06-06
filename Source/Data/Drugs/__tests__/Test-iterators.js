@@ -11,7 +11,29 @@ var {
   DrugDose,
 } = TestHelpers
 
+const AgeWeightUndefinedTest = {
+  age: Time.udef(),
+  tests: [
+    {weight: undefined, expected: undefined},
+    {weight: 1, expected: undefined},
+  ],
+}
+const AgeUndefinedTest = {
+  age: Time.udef(),
+  expected: undefined,
+}
+const WeightUndefinedTest = {
+  weight: undefined,
+  expected: undefined,
+}
+const UndefinedTest = {
+  expected: undefined,
+}
+
 const AgeWeightOneExpected = (drugFile, tests) => {
+  tests = _.cloneDeep(tests)
+  tests.push(AgeWeightUndefinedTest)
+
   jest.unmock(`../${drugFile}`)
   var Drug = require(`../${drugFile}`)
   _.forEach(tests, (x) => {
@@ -32,6 +54,9 @@ const AgeWeightOneExpected = (drugFile, tests) => {
 }
 
 const AgeWeightMultiExpected = (drugFile, tests) => {
+  tests = _.cloneDeep(tests)
+  tests.push(AgeWeightUndefinedTest)
+
   jest.unmock(`../${drugFile}`)
   var Drug = require(`../${drugFile}`)
   _.forEach(tests, (x) => {
@@ -62,6 +87,9 @@ const AgeWeightMultiExpected = (drugFile, tests) => {
 }
 
 const AgeOneExpected = (drugFile, tests) => {
+  tests = _.cloneDeep(tests)
+  tests.push(AgeUndefinedTest)
+
   jest.unmock(`../${drugFile}`)
   var Drug = require(`../${drugFile}`)
   _.forEach(tests, (x) => {
@@ -79,6 +107,9 @@ const AgeOneExpected = (drugFile, tests) => {
 }
 
 const AgeMultiExpected = (drugFile, tests) => {
+  tests = _.cloneDeep(tests)
+  tests.push(AgeUndefinedTest)
+
   jest.unmock(`../${drugFile}`)
   var Drug = require(`../${drugFile}`)
   _.forEach(tests, (x) => {
@@ -106,6 +137,9 @@ const AgeMultiExpected = (drugFile, tests) => {
 }
 
 const WeightOneExpected = (drugFile, tests) => {
+  tests = _.cloneDeep(tests)
+  tests.push(WeightUndefinedTest)
+
   jest.unmock(`../${drugFile}`)
   var Drug = require(`../${drugFile}`)
   describe(`${Drug.name}`, () => {
@@ -123,6 +157,9 @@ const WeightOneExpected = (drugFile, tests) => {
 }
 
 const WeightMultiExpected = (drugFile, tests) => {
+  tests = _.cloneDeep(tests)
+  tests.push(WeightUndefinedTest)
+
   jest.unmock(`../${drugFile}`)
   var Drug = require(`../${drugFile}`)
   describe(`${Drug.name}`, () => {
@@ -150,6 +187,9 @@ const WeightMultiExpected = (drugFile, tests) => {
 }
 
 const OneExpected = (drugFile, tests) => {
+  tests = _.cloneDeep(tests)
+  tests.push(UndefinedTest)
+
   jest.unmock(`../${drugFile}`)
   var Drug = require(`../${drugFile}`)
   _.forEach(tests, (x) => {
@@ -165,6 +205,9 @@ const OneExpected = (drugFile, tests) => {
 }
 
 const MultiExpected = (drugFile, tests) => {
+  tests = _.cloneDeep(tests)
+  tests.push(UndefinedTest)
+
   jest.unmock(`../${drugFile}`)
   var Drug = require(`../${drugFile}`)
   _.forEach(tests, (x) => {

@@ -86,6 +86,12 @@ const tests = [
       ]},
     ],
   },
+  {
+    age: Time.years(13),
+    tests: [
+      {weight: 20.00, expected: undefined},
+    ],
+  },
 ]
 
 TestIterators.AgeWeight.MultiExpected('Phenytoin', tests)

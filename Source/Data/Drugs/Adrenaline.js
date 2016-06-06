@@ -15,7 +15,7 @@ const Drug = {
   description: 'Resuscitation:\n  0.1 ml/kg of 1:10,000 IV\nSevere Viral Croup:\n  2 ml of 1:1,000 Nebulised\n  If effective, repeat with careful monitoring',
   additional: 'To make 1 in 10,000 strength...\n\nDilute 1 ml of 1:1,000 adrenaline in 9 ml of water for injection to make 10 ml',
   calculate: (child: Child) => {
-    if (!child.weight) return undefined
+    if (!child.age || !child.weight) return undefined
 
     var doseResus = Math.min(0.1 * child.weight, 10)
 
