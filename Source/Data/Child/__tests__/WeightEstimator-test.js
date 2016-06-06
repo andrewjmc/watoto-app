@@ -12,7 +12,7 @@ jest.unmock('../WeightEstimator')
 const WeightEstimator = require('../WeightEstimator')
 
 _.forEach([
-  { age:    Time.udefs(), weight: udef, underweight: udef },
+  { age:     Time.udef(), weight: udef, underweight: udef },
 
   { age:    Time.days(6), weight: udef, underweight: udef },
 

@@ -20,7 +20,7 @@ const _time = (scale, label, input) => {
 
 module.exports = {
   Time: {
-    udefs: (input) => {
+    udef: (input) => {
       return {
         text: 'undefined',
         input: input,
