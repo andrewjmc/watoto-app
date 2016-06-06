@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     marginTop: (3 + GLOBAL.SCREEN_PADDING) + (Platform.OS==='ios'?4:2),
     marginLeft: 6,
     marginBottom: (3 + GLOBAL.SCREEN_PADDING),
-    flex: 2,
+    flex: 3,
     fontSize: 20,
     textAlign: 'left',
     color: '#000',
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     right: 0,
   },
   text: {
-    marginTop: (3 + GLOBAL.SCREEN_PADDING) + (Platform.OS==='ios'?4:1),
+    marginTop: (3 + GLOBAL.SCREEN_PADDING) + (Platform.OS==='ios'?4:2),
     marginRight: 6 + (Platform.OS==='android'?4:0),
     marginBottom: (3 + GLOBAL.SCREEN_PADDING),
     flex: 3,
