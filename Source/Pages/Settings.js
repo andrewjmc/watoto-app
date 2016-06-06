@@ -332,21 +332,17 @@ const Settings = React.createClass({
             by UK volunteers and local doctors
             {'\n'}
             as part of the RCPCH Global Links programme
-{/*}
             {'\n'}
             in partnership with the KPA
-{*/}
           </Text>
         </View>
         <View style={[styles.sectionBorderless,{paddingTop:10,flexDirection:'row',justifyContent:'space-around',alignItems:'center'}]}>
           <View style={{flexDirection:'column',justifyContent:'space-around',alignItems:'center'}}>
             <URL proto={'http://'} url={'rcpch.ac.uk'} image={{style:{width:83,height:32,alignSelf:'center'},uri:img.rcpch}} style={{color:'#4F8EF7',fontSize:14,alignSelf:'center'}} />
           </View>
-{/*}
           <View style={{flexDirection:'column',justifyContent:'space-around',alignItems:'center'}}>
             <URL proto={'http://'} url={'kenyapaediatric.org'} image={{style:{width:108,height:32,alignSelf:'center'},uri:img.kpa}} style={{color:'#4F8EF7',fontSize:14,alignSelf:'center'}} />
           </View>
-{*/}
         </View>
         <View style={[styles.sectionBorderless,{paddingTop:0,paddingBottom:0}]}>
           <Text style={styles.creditsText}>
