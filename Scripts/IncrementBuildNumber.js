@@ -1,5 +1,6 @@
 'use strict'
 
+const SemVer = require('semver')
 require('pkginfo')(module)
 
 const exec = require('child_process').execSync
@@ -16,7 +17,12 @@ const setPackageBuildNumber = (buildNum) => {
 }
 
 const update = () => {
-  setPackageBuildNumber(module.exports.buildNumber +1)
+  var buildNumber = (
+    100 * SemVer.major(module.exports.version) +
+     10 * SemVer.minor(module.exports.version) +
+      1 * SemVer.patch(module.exports.version)
+  )
+  setPackageBuildNumber(buildNumber)
 }
 
 if (require.main === module) {
