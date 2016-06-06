@@ -1,7 +1,11 @@
 # Releases
 
 ## GitHub
-- None yet
+### 6 Jun 2016
+#### 1.1.0 - f5a5db2
+- Add MUAC score calculator
+- Expose RCPCH and KPA attributions
+- Android inputbox/text alignment
 
 ## Private Repo
 
