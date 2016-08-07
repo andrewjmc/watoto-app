@@ -36,6 +36,7 @@ const drugs = [
   require('./Drugs/Iron'),
   require('./Drugs/Lactulose'),
   require('./Drugs/Lorazepam'),
+  require('./Drugs/MaintenanceFluid'),
   require('./Drugs/Metronidazole'),
   require('./Drugs/Morphine'),
   require('./Drugs/Nystatin'),

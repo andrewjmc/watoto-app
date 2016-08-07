@@ -8,12 +8,15 @@ import {
   View,
   Text,
   Image,
+  TouchableHighlight
 } from 'react-native'
 
 const _ = require('lodash')
 const GLOBAL = require('../Globals')
 const Network = require('../Network')
 const DrugRegistry = require('../Data/DrugRegistry')
+
+const Router = require('../Router')
 
 const styles = StyleSheet.create({
   container: {
@@ -66,6 +69,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'left',
     color: '#000',
+  },
+  calculationContainer: {
+  	flexDirection: 'row',
+  	alignItems: 'center'
+  },
+  calculation: {
+  	flex: 1
   },
   calculateHeading: {
     marginBottom: (2 + GLOBAL.SCREEN_PADDING),
@@ -134,6 +144,17 @@ const styles = StyleSheet.create({
     marginLeft: 6,
     marginRight: 6,
   },
+  dripRate: {
+  	flexDirection: 'row',
+  	width: 50,
+  	height: 50,
+  	backgroundColor: 'green',
+  	alignItems: 'center'
+  },
+  dripRateText: {
+  	color: 'white',
+  	textAlign: 'center'
+  }
 })
 
 const DrugDoseInfo = React.createClass({
@@ -186,7 +207,8 @@ const DrugDoseInfo = React.createClass({
       })
     }
     else if (_.isPlainObject(calculations)) {
-      render = this._renderCalculation(calculations)
+      isFluid = this.state.drug.types.indexOf('fluid') > -1
+      render = this._renderCalculation(calculations, 0, isFluid)
     }
     // Remove me when drugs have been upgraded
     else if (_.isString(calculations)) {
@@ -202,12 +224,13 @@ const DrugDoseInfo = React.createClass({
       </View>
     )
   },
-  _renderCalculation(calculation, index = 0) {
+  _renderCalculation(calculation, index = 0, isFluid = false) {
     var calculationStyle = !calculation.dose ? styles.calculateNoText : styles.calculateText
     var calculationText = !calculation.dose ? 'No dose available' : calculation.dose
 
     return (
-      <View key={`calculation-${index}`} style={{paddingTop:2,paddingBottom:6}}>
+      <View key="0" style={styles.calculationContainer}>
+      <View key={`calculation-${index}`} style={[styles.calculation,{paddingTop:2,paddingBottom:6}]}>
         {!calculation.heading ? null :
           <Text ref={`calculation-${index}-heading`} style={styles.calculateHeading}>
             {
@@ -235,6 +258,12 @@ const DrugDoseInfo = React.createClass({
                 .replace(/_/g, '\u00A0') // replace _ with a non-breaking-space
             }
           </Text>}
+      </View>
+        <TouchableHighlight style={styles.dripRate} underlayColor="#EEE" onPress={()=>{
+        	this.props.navigator.push(Router.DripRate(this.props.state, this.state.drug, calculation.volume, calculation.time))
+        }}>
+          <Text style={styles.dripRateText}>Drip rate</Text>
+        </TouchableHighlight>
       </View>
     )
   },

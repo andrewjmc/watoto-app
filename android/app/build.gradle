@@ -22,7 +22,7 @@ def enableProguardInReleaseBuilds = true
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "org.cyberfish.watoto"
@@ -36,10 +36,10 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file(WATOTO_STORE_FILE)
+            /*storeFile file(WATOTO_STORE_FILE)
             storePassword WATOTO_STORE_PASSWORD
             keyAlias RELEASE_KEY_ALIAS
-            keyPassword WATOTO_KEY_PASSWORD
+            keyPassword WATOTO_KEY_PASSWORD*/
         }
     }
     splits {

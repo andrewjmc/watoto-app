@@ -120,6 +120,29 @@ class Router {
       }),
     }
   }
+  
+  static DripRate(state, drug, volume, time) {
+    const DripRate = require('./Pages/DripRate')
+    const RouteName = 'DripRate'
+    return {
+      _routeName: RouteName,
+      configureScene() {
+        return ExNavigator.SceneConfigs.FloatFromRight
+      },
+      renderTitle: RouterUX.patientTitle.bind(state, drug.name + ' Drip Rate'),
+      renderLeftButton: RouterUX.backButton.bind(state),
+      renderScene: RouterUX.renderScene.bind({
+        page: DripRate,
+        props: {
+          _routeName: RouteName,
+          state: state,
+          name: drug.name + ' Drip Rate',
+          volume: volume,
+          time: time
+        },
+      }),
+    }
+  }
 }
 
 const styles = StyleSheet.create({
