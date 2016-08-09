@@ -201,18 +201,20 @@ const DrugDoseInfo = React.createClass({
 
     var render
     if (_.isArray(calculations)) {
+      var isFluid = (this.state.drug.types.indexOf('fluids') > -1)
       render = []
       _.forEach(calculations, (x, i) => {
-        render.push(this._renderCalculation(x, i))
+        render.push(this._renderCalculation(x, i, isFluid))
       })
     }
     else if (_.isPlainObject(calculations)) {
-      isFluid = this.state.drug.types.indexOf('fluid') > -1
+      var isFluid = (this.state.drug.types.indexOf('fluids') > -1)
       render = this._renderCalculation(calculations, 0, isFluid)
     }
     // Remove me when drugs have been upgraded
     else if (_.isString(calculations)) {
-      render = this._renderCalculation({dose:calculations})
+      var isFluid = (this.state.drug.types.indexOf('fluids') > -1)
+      render = this._renderCalculation({dose:calculations}, 0, isFluid)
     }
     else {
       render = this._renderCalculation({dose:undefined})
@@ -259,11 +261,15 @@ const DrugDoseInfo = React.createClass({
             }
           </Text>}
       </View>
+      	{isFluid ? 
         <TouchableHighlight style={styles.dripRate} underlayColor="#EEE" onPress={()=>{
         	this.props.navigator.push(Router.DripRate(this.props.state, this.state.drug, calculation.volume, calculation.time))
         }}>
           <Text style={styles.dripRateText}>Drip rate</Text>
         </TouchableHighlight>
+        :
+        <View></View>
+        }
       </View>
     )
   },

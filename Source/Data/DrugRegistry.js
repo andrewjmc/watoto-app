@@ -12,6 +12,7 @@ const drugs = [
   require('./Drugs/ArtemetherLumefantrine'),
   require('./Drugs/Artesunate'),
   require('./Drugs/Azithromycin'),
+  require('./Drugs/BolusFluid'),
   require('./Drugs/Budesonide'),
   require('./Drugs/BenzylPenicillin'),
   require('./Drugs/CaffeineCitrate'),
