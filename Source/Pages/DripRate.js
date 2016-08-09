@@ -115,11 +115,11 @@ const DripRate = React.createClass({
   },
   getInitialState() {
     return {
-      infusionType: 'adult',
+      infusionType: 'Adult giving set',
     }
   },
   render() {
-  	let infusionTypes = {"adult": {"dripRate": 20}, "soluset": {"dripRate": 60}}
+  	let infusionTypes = {"Adult giving set": {"dripRate": 20, "fluidType": 'fluid'}, "Soluset": {"dripRate": 60, "fluidType": "fluid"}, "Blood giving set": {"dripRate": 15, "fluidType": "fluid"}}
   	
     return (
       <View style={styles.container}>
@@ -134,7 +134,7 @@ const DripRate = React.createClass({
           <Picker style={[styles.input,(Platform.OS==='android')?styles.inputAndroid:{}]} selectedValue={this.state.infusionType} onValueChange={this.onValueChange.bind(this,"infusionType")}>
   		    {
 	  	       Object.keys(infusionTypes).map(function(iT){
-  			     return <Picker.Item key={iT} label={iT} value={iT} />
+  			     	return <Picker.Item key={iT} label={iT} value={iT} />
 	  		   })
              }
 		  </Picker>

@@ -14,15 +14,16 @@ const Drug = {
   ],
   description: 'Bolus fluids are calculated as 10-20 ml/kg of normal saline or Ringer\'s lactate over one hour in children without severe acute malnutrition.',
   additional: '',
+  fluidType: 'fluid',
   calculate: (child: Child) => {
     if (!child.age || !child.weight) return undefined
 
-    var volume = child.weight * 20
+    var volume = DrugUtil.numberStep(child.weight * 20,5,2)
 	
     var ret = [
       {
         heading: 'Bolus fluid',
-        dose: `${DrugUtil.numberStep(volume,5,2)} ml of normal saline or Ringer's lactate'`,
+        dose: `${volume} ml of normal saline or Ringer's lactate'`,
         route: 'IV',
         time: 0.5,
         volume: volume

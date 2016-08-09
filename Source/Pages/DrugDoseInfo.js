@@ -231,7 +231,7 @@ const DrugDoseInfo = React.createClass({
     var calculationText = !calculation.dose ? 'No dose available' : calculation.dose
 
     return (
-      <View key="0" style={styles.calculationContainer}>
+      <View key={`calculation-container-${index}`} style={styles.calculationContainer}>
       <View key={`calculation-${index}`} style={[styles.calculation,{paddingTop:2,paddingBottom:6}]}>
         {!calculation.heading ? null :
           <Text ref={`calculation-${index}-heading`} style={styles.calculateHeading}>

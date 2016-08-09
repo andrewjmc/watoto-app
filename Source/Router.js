@@ -138,7 +138,8 @@ class Router {
           state: state,
           name: drug.name + ' Drip Rate',
           volume: volume,
-          time: time
+          time: time,
+          fluidType: drug.fluidType
         },
       }),
     }
