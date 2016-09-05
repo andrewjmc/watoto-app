@@ -26,6 +26,8 @@ class Child {
     this.muacScore = undefined
     this.zScore = undefined
     this.surfaceArea = undefined
+    
+    this.malnutrition = "Unknown"
   }
 
   get (prop) {
@@ -102,6 +104,19 @@ class Child {
 
     if (this.muac) {
       this.muacScore = MidUpperArmCalculator.getScore(this.muac)
+    }
+    
+    if (this.muacScore == -3 || this.zScore <= -3){
+    	this.malnutrition = "SAM";
+    }
+    else if (this.muacScore <= -2 || this.zScore <= -2){
+    	this.malnutrition = "MAM"
+    }
+    else if (this.muacScore && this.zScore){
+    	this.malnutrition = "Not identified"
+    }
+    else{
+    	this.malnutrition = "Unknown"
     }
   }
 }

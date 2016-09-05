@@ -117,6 +117,15 @@ const styles = StyleSheet.create({
   zscoreSevere: {
     backgroundColor: '#D9534F',
   },
+  malnutritionNotIdentified: {
+    backgroundColor: '#00FF00',
+  },
+  malnutritionMAM: {
+    backgroundColor: '#FFFF32',
+  },
+  malnutritionSAM: {
+    backgroundColor: '#D9534F',
+  }
 })
 
 var _keyboardDidHide
@@ -378,6 +387,34 @@ const ChildInfo = React.createClass({
     )
   },
 
+  renderMalnutrition() {
+  	var style = ''
+  	switch(this.props.state.child.malnutrition){
+  		case "SAM":
+  			style = styles.malnutritionSAM
+  			break; 
+  		case "MAM":
+  			style = styles.malnutritionMAM
+  			break;
+  		case "Not identified":
+  			style = styles.malnutritionNotIdentified
+  			break;
+  		case "Unknown":
+  			style = ''
+  			break;
+  	}
+    return (
+  	  <View style={[styles.section,styles.sectionDynamic,style]}>
+        <Text style={styles.label}>
+          Malnourished
+        </Text>
+        <Text ref='malnourished' style={[styles.text,{flex:1}]}>
+          {this.props.state.child.malnutrition}
+        </Text>
+      </View>
+    )
+  },
+
   renderContainer() {
     return (
       <ScrollView ref='container'
@@ -397,6 +434,8 @@ const ChildInfo = React.createClass({
         {this.renderSurfaceArea()}
 
         {this.renderEstimateWeight()}
+        
+        {this.renderMalnutrition()}
       </ScrollView>
     )
   },
