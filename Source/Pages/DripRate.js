@@ -115,11 +115,16 @@ const DripRate = React.createClass({
   },
   getInitialState() {
     return {
-      infusionType: 'Adult giving set',
+      infusionType: this.props.fluidType == 'blood' ? 'Blood giving set' : 'Adult giving set',
     }
   },
   render() {
-  	let infusionTypes = {"Adult giving set": {"dripRate": 20, "fluidType": 'fluid'}, "Soluset": {"dripRate": 60, "fluidType": "fluid"}, "Blood giving set": {"dripRate": 15, "fluidType": "fluid"}}
+  	var iT = {"Adult giving set": {"dripRate": 20, "fluidType": 'fluid'}, "Soluset": {"dripRate": 60, "fluidType": "fluid"}, "Blood giving set": {"dripRate": 15, "fluidType": "blood"}}
+  	
+  	var _this = this;
+  	let infusionTypes = _.pickBy(iT, function(i){
+  		return i.fluidType == _this.props.fluidType;
+  	});
   	
     return (
       <View style={styles.container}>
@@ -196,8 +201,12 @@ class CalculatedDripRate extends Component{
 class TestDripRate extends Component{
 	constructor(props) {
     	super(props)
-    	this.state = {active: false, timeout: null, started: null, presses: 0, lastPress: null, times: [], complete: false, dripRate: null, readyToRestart: false}
+    	this.state = this.defaultState();
   	}
+	
+	defaultState() {
+		return {active: false, timeout: null, started: null, presses: 0, lastPress: null, times: [], complete: false, dripRate: null, readyToRestart: false}	
+	}
 	
 	deactivate(){
 		this.setState({active: false, timeout: null, started: null, presses: 0, lastPress: null, times: [], complete: false, dripRate: null, readyToRestart: false})
@@ -207,7 +216,7 @@ class TestDripRate extends Component{
 		var times = this.state.times.sort();
 		var avTime = (this.state.lastPress - this.state.started) / (this.state.presses - 1) 
 		var range = Math.abs(times[0] - times[times.length - 1])
-		if (range > avTime / 5){
+		if (range > avTime / 2){
 			this.setState({complete: true, dripRate: null})
 		}
 		else{
@@ -218,6 +227,12 @@ class TestDripRate extends Component{
 			}
 			else{
 				this.setState({success: false})
+				if (dR > this.props.dripRate){
+					this.setState({problem: 'fast'});
+				}
+				else{
+					this.setState({problem: 'slow'});	
+				}
 			}
 		}
 		setTimeout(() => {this.setState({readyToRestart: true})}, 2000)
@@ -273,6 +288,16 @@ class TestDripRate extends Component{
 								<Text style={styles.drText}>
 									{this.state.dripRate ? Math.round(this.state.dripRate) + "/min" : "Irregular presses"}
 								</Text>
+								{this.state.success ?  
+									<Text style={styles.drText}>Good</Text>
+									:
+									<Text>
+									{this.state.problem == 'fast' ?
+										<Text style={styles.drText}>Too fast</Text> 
+										:
+										<Text style={styles.drText}>Too slow</Text>
+									}
+								</Text>}
 								{this.state.readyToRestart ?
 									<Text style={styles.drText}>
 										Click to try again

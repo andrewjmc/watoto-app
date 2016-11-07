@@ -12,7 +12,7 @@ const Drug = {
     'fluids',
     'other',
   ],
-  description: 'For non-malnourished children, bolus fluids are calculated as 10-20 ml/kg of normal saline or Ringer\'s lactate over one hour.\n\nFor malnourished children bolus fluids are calculated as 10-15 ml/kg over one hour of Ringer\'s lactate and 5% dextrose or half-strength Darrow\'s with 5% dextrose or 0.45% sodium chloride with 5% dextrose.',
+  description: 'For non-malnourished children, bolus fluids are calculated as 10 ml/kg of normal saline or Ringer\'s lactate over 30 minutes and can be repeated up to three times.\n\nFor malnourished children bolus fluids are calculated as 10-15 ml/kg over one hour of Ringer\'s lactate and 5% dextrose, with no repeat.\n\nFor either child, blood transfusion can be given if shock persists after treatment.',
   
   additional: '',
   fluidType: 'fluid',
@@ -30,9 +30,9 @@ const Drug = {
     ]
 
     if (child.malnutrition != 'SAM'){
-    	var volume = DrugUtil.numberStep(child.weight * 20,5,2)
-		var minVolume = DrugUtil.numberStep(child.weight * 15,5,2)
-		var maxVolume = DrugUtil.numberStep(child.weight * 20,5,2)
+    	var volume = DrugUtil.numberStep(child.weight * 10,5,2)
+		var minVolume = DrugUtil.numberStep(child.weight * 10,5,2)
+		var maxVolume = DrugUtil.numberStep(child.weight * 10,5,2)
 		ret[0].dose = `${volume} ml of normal saline or Ringer's lactate` + (child.malnutrition == 'Unknown' ? ' if not severely malnourished' : '')
 		ret[0].volume = volume
 		ret[0].minVolume = minVolume
@@ -43,7 +43,7 @@ const Drug = {
 		var volume = DrugUtil.numberStep(child.weight * 15,5,2)
 		var minVolume = DrugUtil.numberStep(child.weight * 10,5,2)
 		var maxVolume = DrugUtil.numberStep(child.weight * 15,5,2)
-		ret[0].dose = `${volume} ml of Ringer's lactate and 5% dextrose or half-strength Darrow's and 5% dextrose or 0.45% sodium chloride and 5% dextrose`
+		ret[0].dose = `${volume} ml of Ringer's lactate and 5% dextrose`
 		ret[0].volume = volume
 		ret[0].minVolume = minVolume
 		ret[0].maxVolume = maxVolume

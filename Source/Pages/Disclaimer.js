@@ -272,6 +272,7 @@ const Disclaimer = React.createClass({
                 This app has been developed for use by trained medical staff;
                 and is a support tool provided for reference only.
                 It must be used in conjunction with appropriate professional judgement.
+                Fluid prescriptions are in the testing phase. Please sent feedback to andrew.mcardle@gmail.com
               </Text>
             </View>
             <TouchableOpacity onPress={() => {
